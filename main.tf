@@ -1,3 +1,7 @@
+provider "azurerm" {
+  features {}
+}
+
 resource "null_resource" "vm_manage" {
   provisioner "local-exec" {
     when = create
