@@ -19,3 +19,18 @@ resource "azurerm_public_ip" "workstation" {
   resource_group_name = "denmark-east-rg"
   allocation_method   = "Static"
 }
+resource "null_resource" "ip_manage" {
+
+  depends_on = [azurerm_public_ip.workstation]
+
+  provisioner "local-exec" {
+    command = "az network nic ip-config update --resource-group denmark-east-rg --nic-name workstation540 --name ipconfig1 --public-ip-address workstation-public-ip"
+  }
+
+
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "az network nic ip-config update --resource-group denmark-east-rg --nic-name workstation540 --name ipconfig1 --public-ip-address null"
+  }
+
+}
