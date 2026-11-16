@@ -1,9 +1,9 @@
 common:
 	git pull
 	rm -f .terraform/terraform.tfstate
-apply:
+apply: common
 	terraform init
 	terraform apply -auto-approve
-destroy:
+destroy: common
 	terraform init
 	terraform destroy -auto-approve
